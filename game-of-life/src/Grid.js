@@ -12,7 +12,7 @@ const Grid = (props) => {
                         <Cell key={`${r}-${c}`}
                             onClick={(e) => props.changeSelectedCell(r, c)}
                             style={{
-                                background: [rows][col] ? "white" : props.color,
+                                background: [rows][col] ? 'white' : props.color,
                             }}></Cell>
                     )
                 )}

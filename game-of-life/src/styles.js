@@ -85,7 +85,6 @@ export const Game = styled.div`
     width: 30rem;
     height: 30rem;
     display: grid;
-    // overflow-x: hidden;
     grid-template-columns: repeat(auto-fit, minmax(1.45rem, 1fr));
     grid-template-rows: repeat(auto-fit, minmax(1.45rem, 1fr));
     margin: 0.5rem auto;

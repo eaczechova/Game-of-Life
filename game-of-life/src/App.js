@@ -20,25 +20,33 @@ import {
 } from './styles';
 
 function App() {
-  const [tempSpeed, setTempSpeed] = useState(10);
-  const [speed, setSpeed] = useState(10);
-  const [rows, setRows] = useState(20);
-  const [cols, setCols] = useState(20);
-  let [generation, setGeneration] = useState(0);
+
+  const rows = 20;
+  const cols = 20;
+  const initialSpeed = 10;
+
+  const [tempSpeed, setTempSpeed] = useState(initialSpeed);
+  const [speed, setSpeed] = useState(initialSpeed);
+  
+  const [generation, setGeneration] = useState(0);
   const [color, setColor] = useState('#000');
   const [ownLayout, setOwnLayout] = useState(false);
-
-  const [grid, setGrid] = useState(() => {
-    // const grid = new Array(20).fill(new Array(20).fill(0)).map(col => col.map(row => row = Math.floor(Math.random() * 2)));
-    const grid = new Array(rows).fill(new Array(cols).fill(0)).map(col => col.map(row => row = 0));
-    return grid
-  });
 
   const intervalRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
-  // Fills grid cells with random values of 0 or 1
-  // Run the function on component mount
+  // ************************
+  // GRID SETUP
+  // ************************
+
+  // Creates empty grid of rows and cols
+
+  const [grid, setGrid] = useState(() => {
+    const grid = new Array(rows).fill(new Array(cols).fill(0)).map(col => col.map(row => row = 0));
+    return grid
+  });
+
+  // Fills grid cells with random values of 0 or 1; Run the function on component mount
 
   const fillGrid = () => {
     let filledGrid = [...grid];
@@ -47,18 +55,91 @@ function App() {
         filledGrid[i][j] = Math.floor(Math.random() * 2);
       }
     }
-
-    // for (let i = 0; i < rows; i+=2) {
-    //   for (let j = 0; j < cols; j++) {
-    //     filledGrid[i][j] = 1;
-    //   }
-    // }
     setGrid(filledGrid);
   }
 
-  const handleChangeComplete = (color) => {
-    setColor( color.hex );
+  // ************************
+  // GAME SETUP
+  // ************************
+
+  const toggle = () => {
+    setIsPlaying(!isPlaying);
+  }
+
+  const play = () => {
+    const newGrid = [...grid];
+    for (let row = 0; row < grid.length; row++) {
+      for (let col = 0; col < grid[row].length; col++) {
+        const cell = grid[row][col]; // value of cell 0 or 1
+        let neighbourCounter = 0;
+        // Iterating over 8 neighbouring cells
+        for (let i = -1; i < 2; i++) {
+          for (let j = -1; j < 2; j++) {
+            // To avoid couting cell itself
+            if (!(i === 0 && j === 0)) {
+              const cellRow = row + i;
+              const cellCol = col + j;
+              // To stay within the grid
+              if (cellRow > 0 && cellRow < grid.length && cellCol > 0 && cellCol < grid.length) {
+                neighbourCounter += grid[cellRow][cellCol];
+              }
+            }
+          }
+        }
+
+        if (cell === 0 && neighbourCounter === 3) {
+          newGrid[row][col] = 1;
+        } else if ((cell === 1 && neighbourCounter > 3) || (cell === 1 && neighbourCounter < 2)) {
+          newGrid[row][col] = 0;
+        }
+      }
+    }
+    setGrid(newGrid);
+    setGeneration(generation => generation+1);
+  }
+
+  const stopGame = () => {
+    const emptyGrid = new Array(rows).fill(new Array(cols).fill(0)).map(col => col.map(row => row = 0));
+    setIsPlaying(false);
+    setGrid(emptyGrid);
+    setGeneration(0);
+    setSpeed(initialSpeed);
+    setOwnLayout(false);
   };
+
+  // ************************
+  // CUSTOM FEATURES
+  // ************************
+ 
+  // Change color taken from color picker
+
+  const handleChangeComplete = (color) => {
+    setColor(color.hex);
+  };
+
+  // Change speed on for submit when game is stopped ot paused
+
+  const handleSpeedChange = (e) => {
+    setTempSpeed(e.target.value);
+  }
+
+  const onFormSubmit = (e) => {
+    e.preventDefault();
+    setSpeed(tempSpeed);
+  }
+
+  // Change state of selected grid cell; 
+
+  const changeSelectedCell = (rows, col) => {
+    const newGrid = [...grid];
+    if (!isPlaying) {
+      newGrid[rows][col] = grid[rows][col] ? 0 : 1;
+      setGrid(newGrid);
+      setOwnLayout(true);
+    }
+  };
+
+  // Custom presets
 
   const preset1 = () => {
     let filledGrid = [...grid];
@@ -80,31 +161,6 @@ function App() {
     setGrid(filledGrid);
   }
 
-  // Change state of selected grid cell; 
-
-  const changeSelectedCell = (rows, col) =>{
-    const newGrid = [...grid];
-    if (!isPlaying) {
-      newGrid[rows][col] = grid[rows][col] ? 0 : 1;
-      setGrid(newGrid);
-      setOwnLayout(true);
-    }
-  };
-  
-  const stopGame = () => {
-    const emptyGrid = new Array(rows).fill(new Array(cols).fill(0)).map(col => col.map(row => row = 0));
-    setIsPlaying(false);
-    setGrid(emptyGrid);
-    setGeneration(0);
-    setSpeed(1000);
-    setOwnLayout(false);
-  };
-
-
-  const toggle = () => {
-    setIsPlaying(!isPlaying);
-  }
-
   //\\  row, col //\\
   // 1. row -1, col -1
   // 2. row -1, col
@@ -116,73 +172,30 @@ function App() {
   // 7.  row +1, col
   // 8.  row +1, col +1
 
-  const gridUpdate = () => {
-    const newGrid = [...grid];
-    
-    for (let row = 0; row < grid.length; row++) {
-      for (let col = 0; col < grid[row].length; col++) {
-        const cell = grid[row][col]; // value of cell 0 or 1
-        let neighbourCounter = 0;
-          // Iterating over 8 neighbouring cells
-          for (let i = -1; i < 2; i++) {
-            for (let j = -1; j < 2; j++) {
-              // To avoid couting cell itself
-              if (!(i === 0 && j === 0)) {
-                const cellRow = row + i;
-                const cellCol = col + j;
-                // To stay within the grid
-                if (cellRow > 0 && cellRow < grid.length && cellCol > 0 && cellCol < grid.length) {
-                  neighbourCounter += grid[cellRow][cellCol];
-                }
-              }
-            }
-          }
-     
-          if (cell === 0 && neighbourCounter === 3) {
-            newGrid[row][col] = 1;
-          } else if ((cell === 1 && neighbourCounter > 3) || (cell === 1 && neighbourCounter < 2)) {
-            newGrid[row][col] = 0;
-          }
-      }
-    }
-    setGrid(newGrid);
-    setGeneration(generation++);
-  }
-
+  
   useEffect(() => {
     if (isPlaying && generation === 0) {
       if(ownLayout) {
         clearInterval(intervalRef.current);
-        intervalRef.current = setInterval(gridUpdate, speed);
+        intervalRef.current = setInterval(play, speed);
       } else {
       fillGrid();
         clearInterval(intervalRef.current);
-        intervalRef.current = setInterval(gridUpdate, speed);
+        intervalRef.current = setInterval(play, speed);
       }
     } 
     else if (isPlaying && generation > 0) {
       clearInterval(intervalRef.current);
-      intervalRef.current = setInterval(gridUpdate, speed);
+      intervalRef.current = setInterval(play, speed);
     } else if (!isPlaying) {
       clearInterval(intervalRef.current);
     } 
   }, [isPlaying, speed]);
 
-  const handleSpeedChange = (e) => {
-    setTempSpeed(e.target.value);
-  }
-
-  const onFormSubmit = (e) => {
-    e.preventDefault();
-    setSpeed(tempSpeed);
-  }
-  console.log("tempSpeed", grid);
-
   return (
     <>
       <GameTitle>Conway's "Game of Life"</GameTitle>
       <MainWrapper>
-       
         <GameContainer>
           <SectionTitle style={{width: '100%'}}>Generation # {generation}</SectionTitle>
           <GridWrapper>
@@ -200,7 +213,7 @@ function App() {
             </ButtonsContainer>
             <SectionTitle>Settings</SectionTitle>
             <Form onSubmit={onFormSubmit}>
-              <input value={tempSpeed} onChange={handleSpeedChange} /><button disabled={isPlaying ? "true" : ""}>Ok</button></Form>
+              <input value={tempSpeed} onChange={handleSpeedChange} /><button disabled={isPlaying ? 'true' : ''}>Ok</button></Form>
             <ColorPickerWrapper>
               <ChromePicker color={color} onChangeComplete={handleChangeComplete} />
             </ColorPickerWrapper>
