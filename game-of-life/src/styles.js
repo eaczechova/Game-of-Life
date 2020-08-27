@@ -27,7 +27,6 @@ export const GameContainer = styled.div`
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    border: 1px solid green;
     @media (min-width: 900px) {
        justify-content: space-between;
 	}
@@ -56,11 +55,10 @@ export const SectionTitle = styled.h2`
 export const GridWrapper = styled.div`
     width: 100%;
     display: flex;
-    flex-direction: row;
+    flex-wrap: wrap;
+    flex-direction: column;
     justify-content: center;
-    border: 1px solid blue;
     @media (min-width: 900px) {
-        flex-direction: column;
         align-items: baseline;
         width: 55%;
 	}
@@ -69,9 +67,8 @@ export const GridWrapper = styled.div`
 export const ButtonsContainer = styled.div`
     display: flex;
     justify-content: center;
-    padding: 3rem;
-    flex-direction: column;
-    @media (min-width: 900px) {
+    padding: 2rem;
+    @media (min-width: 0px) {
         flex-direction: row;
    
 `;
@@ -81,22 +78,33 @@ export const PresetsContainer = styled.div`
     display: flex;
     flex-direction: column;
     @media (min-width: 900px) {
-        width: 20%
+        width: 20%;
 `;
 
 export const Game = styled.div`
-    width: 500px;
-    height: 500px;
+    width: 30rem;
+    height: 30rem;
     display: grid;
-    overflow-x: hidden;
-    grid-template-columns: repeat(20, 2.5rem);
+    // overflow-x: hidden;
+    grid-template-columns: repeat(auto-fit, minmax(1.45rem, 1fr));
+    grid-template-rows: repeat(auto-fit, minmax(1.45rem, 1fr));
     margin: 0.5rem auto;
+    border: 1px solid #D1C6C6;
+    @media (min-width: 900px) {
+        width: 50rem;
+        height: 50rem;
+        grid-template-columns: repeat(auto-fit, minmax(2.5rem, 1fr));
+        grid-template-rows: repeat(auto-fit, minmax(2.5rem, 1fr));
 `;
 
 export const Cell = styled.div`
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 1.45rem;
+    height: 1.45rem;
     border: 1px solid #D1C6C6;
+    @media (min-width: 900px) {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
 `;
 
 export const Button = styled.button`
@@ -113,6 +121,7 @@ export const Preset = styled.div``;
 export const ListElement = styled.li`
     font-size: 1.5rem;
     padding: 1rem;
+
 `;
 
 export const List = styled.ul`
@@ -120,7 +129,7 @@ export const List = styled.ul`
     text-align: justify;;
     width: 80%;
     margin: 0 auto;
-   
+    list-style: none;
 `;
 
 export const ColorPickerWrapper = styled.div`

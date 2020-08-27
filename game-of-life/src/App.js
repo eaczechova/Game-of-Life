@@ -152,13 +152,16 @@ function App() {
   useEffect(() => {
     if (isPlaying && generation === 0) {
       if(ownLayout) {
+        clearInterval(intervalRef.current);
         intervalRef.current = setInterval(gridUpdate, speed);
       } else {
       fillGrid();
+        clearInterval(intervalRef.current);
         intervalRef.current = setInterval(gridUpdate, speed);
       }
     } 
     else if (isPlaying && generation > 0) {
+      clearInterval(intervalRef.current);
       intervalRef.current = setInterval(gridUpdate, speed);
     } else if (!isPlaying) {
       clearInterval(intervalRef.current);
@@ -179,9 +182,10 @@ function App() {
     <>
       <GameTitle>Conway's "Game of Life"</GameTitle>
       <MainWrapper>
+       
         <GameContainer>
+          <SectionTitle style={{width: '100%'}}>Generation # {generation}</SectionTitle>
           <GridWrapper>
-            <SectionTitle>Generation: #{generation}</SectionTitle>
             <Grid grid={grid} changeSelectedCell={changeSelectedCell} color={color}/>
             <ButtonsContainer>
               <Button onClick={toggle}>{isPlaying ? 'Pause' : 'Start'}</Button>
