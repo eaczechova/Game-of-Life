@@ -8,7 +8,7 @@ export const GameTitle = styled.h1`
 `;
 
 export const MainWrapper = styled.main`
-    width: 100%;
+    max-width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -17,9 +17,10 @@ export const MainWrapper = styled.main`
     background-color: white;
     box-shadow: 2.5px 5px 4px #DCDCDC;
     @media (min-width: 900px) {
-       flex-direction: column;
+        flex-direction: column;
         width: 95%; 
         margin: 0 auto;
+        justify-content:center;
 	}
 `;
 
@@ -41,10 +42,11 @@ export const Rules = styled.section`
 `;
 
 export const About = styled.section`
-    width: 80%;
+    width: 95%;
     font-size: 1.6rem;
-    padding: 1rem;
+    padding: 2rem;
     margin: 5rem auto;
+    border: 1px solid red;
 `;
 
 export const SectionTitle = styled.h2`
