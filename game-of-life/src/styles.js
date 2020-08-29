@@ -36,23 +36,6 @@ export const GameContainer = styled.div`
 	}
 `;
 
-export const Rules = styled.section`
-    width: 100%;
-    font-size: 1.6rem;
-    @media (min-width: 900px) {
-        width: 20%;
-	}
-`;
-
-export const About = styled.section`
-    width: 95%;
-    font-size: 1.6rem;
-    padding: 2rem;
-    margin: 5rem auto;
-    text-align: justify;
-    line-height: 1.6;
-`;
-
 export const SectionTitle = styled.h2`
     text-align: center;
     font-size: 1.6rem;
@@ -72,24 +55,6 @@ export const GridWrapper = styled.div`
 	}
 `;
 
-export const ButtonsContainer = styled.div`
-    display: flex;
-    justify-content: center;
-    padding: 2rem;
-    @media (min-width: 0px) {
-        flex-direction: row;
-        width: 100%;
-   
-`;
-
-export const PresetsContainer = styled.div`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    @media (min-width: 900px) {
-        width: 20%;
-`;
-
 export const Game = styled.div`
     width: 30rem;
     height: 30rem;
@@ -103,6 +68,7 @@ export const Game = styled.div`
         height: 50rem;
         grid-template-columns: repeat(auto-fit, minmax(2.5rem, 1fr));
         grid-template-rows: repeat(auto-fit, minmax(2.5rem, 1fr));
+    }
 `;
 
 export const Cell = styled.div`
@@ -112,6 +78,16 @@ export const Cell = styled.div`
     @media (min-width: 900px) {
         width: 2.5rem;
         height: 2.5rem;
+    }
+`;
+
+export const ButtonsContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+    @media (min-width: 900px) {
+        flex-direction: row;
+        width: 100%;
     }
 `;
 
@@ -127,27 +103,18 @@ export const Button = styled.button`
     transition: box-shadow 1s ;
     &:hover {
         box-shadow: 0px 2px 4px rgba(0,0,0,.5);
+    }
     &:active {  
         outline: none;
-        }
-  }
+    }
 `;
 
-export const Preset = styled.div``;
-   
-export const ListElement = styled.li`
-    font-size: 1.5rem;
-    padding: 0 2rem 2rem 0;
-`;
-
-export const List = styled.ul`
-    text-align: justify;
-    margin: 0 auto;
-    list-style: none;
-`;
-
-export const ColorPickerWrapper = styled.div`
-    margin: 3rem auto;
+export const PresetsContainer = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    @media (min-width: 900px) {
+        width: 20%;
 `;
 
 export const Form = styled.form`
@@ -161,7 +128,6 @@ export const Input = styled.input`
     transition: box-shadow .5s;
     &:focus {
         outline: none;
-        // border-bottom: 1px solid gray;
         box-shadow: 0px 1px 0px rgba(0,0,0,.5)
     }
 `;
@@ -170,15 +136,43 @@ export const SubmitButton = styled.button`
     border-radius: 5px;
     border: none; 
     padding: 1.2rem;
-    // width: 4rem;    
     cursor: pointer;
     background-color: transparent;
-    // margin-right: 2rem;
     box-shadow: 0px 2px 4px rgba(0,0,0,.1);
     transition: box-shadow 1s ;
     &:hover {
-    box-shadow: 0px 2px 4px rgba(0,0,0,.5);
+        box-shadow: 0px 2px 4px rgba(0,0,0,.5);
   }
 `;
 
+export const ColorPickerWrapper = styled.div`
+    margin: 3rem auto;
+`;
 
+export const Rules = styled.section`
+    width: 100%;
+    font-size: 1.6rem;
+    @media (min-width: 900px) {
+        width: 20%;
+	}
+`;
+
+export const List = styled.ul`
+    text-align: justify;
+    margin: 0 auto;
+    list-style: none;
+`;
+
+export const ListElement = styled.li`
+    font-size: 1.5rem;
+    padding: 0 2rem 2rem 0;
+`;
+
+export const About = styled.section`
+    width: 95%;
+    font-size: 1.6rem;
+    padding: 2rem;
+    margin: 5rem auto;
+    text-align: justify;
+    line-height: 1.6;
+`;

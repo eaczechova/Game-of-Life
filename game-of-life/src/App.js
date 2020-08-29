@@ -243,15 +243,10 @@ function App() {
         </GameContainer>
         <About> 
           <SectionTitle>About</SectionTitle>
-          <div>
-            <p>Conway’s <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life" target="_blank"> Game of Life</a> is a cellular automaton devised by British mathematician John Horton Conway in 1970.</p>
-            <p>A player interacts with the Game of Life by creating an initial configuration and observing how it evolves. The player
-              can also use one of two predefined presets or just click Start button to have the initial configuration created by the program instaed.
-            </p>
-            <p>The player can also changed color of the living sells and the speed in which cells move to the next generation. The chnage of speed can be done 
-              only when the game is paused or stopped.
-            </p>
-            </div>
+          <p>Conway’s <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life" target="_blank"> Game of Life</a> is a cellular automaton devised by British mathematician John Horton Conway in 1970.</p>
+          <p>A player interacts with the Game of Life by creating an initial configuration and observing how it evolves. The player can also use one of two predefined presets or just click Start button to have 
+              the initial configuration created by the program instaed.</p>
+          <p>The player can also changed color of the living sells and the speed in which cells move to the next generation. The chnage of speed can be done only when the game is paused or stopped.</p>
         </About>
       </MainWrapper>
     </>
