@@ -14,6 +14,8 @@ import {
   ListElement,
   PresetsContainer,
   ButtonsContainer,
+  SubmitButton,
+  Input,
   Button,
   ColorPickerWrapper,
   Form
@@ -28,7 +30,7 @@ function App() {
   // Vars used for custom settings
   const [tempSpeed, setTempSpeed] = useState(initialSpeed);
   const [speed, setSpeed] = useState(initialSpeed);
-  const [color, setColor] = useState('#000');
+  const [color, setColor] = useState('#2196F3');
   
   // Vars used for game rendering, to set conditions
   const [generation, setGeneration] = useState(0);
@@ -205,7 +207,7 @@ function App() {
 
   return (
     <>
-      <GameTitle>Conway's "Game of Life"</GameTitle>
+      <GameTitle>Conway's Game of Life</GameTitle>
       <MainWrapper>
         <GameContainer>
           <SectionTitle style={{width: '100%'}}>Generation # {generation}</SectionTitle>
@@ -224,7 +226,7 @@ function App() {
             </ButtonsContainer>
             <SectionTitle>Settings</SectionTitle>
             <Form onSubmit={onFormSubmit}>
-              <input value={tempSpeed} onChange={handleSpeedChange}/><button disabled={isPlaying ? 'true' : ''}>Ok</button></Form>
+              <Input value={tempSpeed} onChange={handleSpeedChange} /><SubmitButton disabled={isPlaying ? 'true' : ''}>Ok</SubmitButton></Form>
             <ColorPickerWrapper>
               <ChromePicker color={color} onChangeComplete={handleChangeComplete} />
             </ColorPickerWrapper>
@@ -232,21 +234,23 @@ function App() {
           <Rules>
             <SectionTitle>Rules</SectionTitle>
             <List>
-              <ListElement>Any live cell with fewer than two live neighbors dies</ListElement>
-              <ListElement>Any live cell with two or three live neighbors lives on to the next generation.</ListElement>
-              <ListElement>Any live cell with more than three live neighbors dies, as if by overpopulation.</ListElement>
-              <ListElement>Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.</ListElement>
+              <ListElement>Live cell with fewer than 2 live neighbors dies</ListElement>
+              <ListElement>Live cell with 2 or 3 live neighbors lives on to the next generation.</ListElement>
+              <ListElement>Live cell with more than 3 live neighbors dies.</ListElement>
+              <ListElement>Dead cell with exactly 3 live neighbors becomes a live cell.</ListElement>
             </List>
           </Rules>
         </GameContainer>
         <About> 
           <SectionTitle>About</SectionTitle>
           <div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt 
-              mollit anim id est laborum.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea 
-              commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt 
-              mollit anim id est laborum.</p>
+            <p>Conway’s <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life" target="_blank"> Game of Life</a> is a cellular automaton devised by British mathematician John Horton Conway in 1970.</p>
+            <p>A player interacts with the Game of Life by creating an initial configuration and observing how it evolves. The player
+              can also use one of two predefined presets or just click Start button to have the initial configuration created by the program instaed.
+            </p>
+            <p>The player can also changed color of the living sells and the speed in which cells move to the next generation. The chnage of speed can be done 
+              only when the game is paused or stopped.
+            </p>
             </div>
         </About>
       </MainWrapper>

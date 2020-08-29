@@ -2,9 +2,12 @@ import styled from 'styled-components';
 
 export const GameTitle = styled.h1`
     text-align: center;
-    font-size: 2.5rem;
+    font-size: 3.5rem;
     padding: 3rem;
     width: 100%;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 `;
 
 export const MainWrapper = styled.main`
@@ -46,12 +49,15 @@ export const About = styled.section`
     font-size: 1.6rem;
     padding: 2rem;
     margin: 5rem auto;
-    border: 1px solid red;
+    text-align: justify;
+    line-height: 1.6;
 `;
 
 export const SectionTitle = styled.h2`
     text-align: center;
-    font-size: 2rem;
+    font-size: 1.6rem;
+    padding: 2rem 1rem;
+    letter-spacing: 2px;
 `;
 
 export const GridWrapper = styled.div`
@@ -72,6 +78,7 @@ export const ButtonsContainer = styled.div`
     padding: 2rem;
     @media (min-width: 0px) {
         flex-direction: row;
+        width: 100%;
    
 `;
 
@@ -110,25 +117,31 @@ export const Cell = styled.div`
 
 export const Button = styled.button`
     border-radius: 5px;
+    border: none; 
     padding: 1.5rem;
     width: 9rem;    
     cursor: pointer;
     background-color: transparent;
     margin-right: 2rem;
+    box-shadow: 0px 2px 4px rgba(0,0,0,.1);
+    transition: box-shadow 1s ;
+    &:hover {
+        box-shadow: 0px 2px 4px rgba(0,0,0,.5);
+    &:active {  
+        outline: none;
+        }
+  }
 `;
 
 export const Preset = styled.div``;
    
 export const ListElement = styled.li`
     font-size: 1.5rem;
-    padding: 1rem;
-
+    padding: 0 2rem 2rem 0;
 `;
 
 export const List = styled.ul`
-    padding: 0;
-    text-align: justify;;
-    width: 80%;
+    text-align: justify;
     margin: 0 auto;
     list-style: none;
 `;
@@ -139,6 +152,33 @@ export const ColorPickerWrapper = styled.div`
 
 export const Form = styled.form`
     text-align: center;
+`;
+
+export const Input = styled.input`
+    border: none;
+    border-bottom: 1px solid gray;
+    margin-right: 2rem;
+    transition: box-shadow .5s;
+    &:focus {
+        outline: none;
+        // border-bottom: 1px solid gray;
+        box-shadow: 0px 1px 0px rgba(0,0,0,.5)
+    }
+`;
+
+export const SubmitButton = styled.button`
+    border-radius: 5px;
+    border: none; 
+    padding: 1.2rem;
+    // width: 4rem;    
+    cursor: pointer;
+    background-color: transparent;
+    // margin-right: 2rem;
+    box-shadow: 0px 2px 4px rgba(0,0,0,.1);
+    transition: box-shadow 1s ;
+    &:hover {
+    box-shadow: 0px 2px 4px rgba(0,0,0,.5);
+  }
 `;
 
 
