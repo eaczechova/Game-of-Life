@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/%20//github.com/eaczechova/game-of-life/static/css/main.1b61d830.chunk.css",
-    "main.js": "/%20//github.com/eaczechova/game-of-life/static/js/main.b5f8aa1d.chunk.js",
-    "main.js.map": "/%20//github.com/eaczechova/game-of-life/static/js/main.b5f8aa1d.chunk.js.map",
-    "runtime-main.js": "/%20//github.com/eaczechova/game-of-life/static/js/runtime-main.a83f5fd1.js",
-    "runtime-main.js.map": "/%20//github.com/eaczechova/game-of-life/static/js/runtime-main.a83f5fd1.js.map",
-    "static/js/2.13c1aece.chunk.js": "/%20//github.com/eaczechova/game-of-life/static/js/2.13c1aece.chunk.js",
-    "static/js/2.13c1aece.chunk.js.map": "/%20//github.com/eaczechova/game-of-life/static/js/2.13c1aece.chunk.js.map",
-    "index.html": "/%20//github.com/eaczechova/game-of-life/index.html",
-    "precache-manifest.c9a2831bf97977580e1dd2632bf495d3.js": "/%20//github.com/eaczechova/game-of-life/precache-manifest.c9a2831bf97977580e1dd2632bf495d3.js",
-    "service-worker.js": "/%20//github.com/eaczechova/game-of-life/service-worker.js",
-    "static/css/main.1b61d830.chunk.css.map": "/%20//github.com/eaczechova/game-of-life/static/css/main.1b61d830.chunk.css.map",
-    "static/js/2.13c1aece.chunk.js.LICENSE.txt": "/%20//github.com/eaczechova/game-of-life/static/js/2.13c1aece.chunk.js.LICENSE.txt"
+    "main.css": "/eaczechova/Game-of-Life/static/css/main.1b61d830.chunk.css",
+    "main.js": "/eaczechova/Game-of-Life/static/js/main.b4e70dd3.chunk.js",
+    "main.js.map": "/eaczechova/Game-of-Life/static/js/main.b4e70dd3.chunk.js.map",
+    "runtime-main.js": "/eaczechova/Game-of-Life/static/js/runtime-main.6133649e.js",
+    "runtime-main.js.map": "/eaczechova/Game-of-Life/static/js/runtime-main.6133649e.js.map",
+    "static/js/2.600ed2f7.chunk.js": "/eaczechova/Game-of-Life/static/js/2.600ed2f7.chunk.js",
+    "static/js/2.600ed2f7.chunk.js.map": "/eaczechova/Game-of-Life/static/js/2.600ed2f7.chunk.js.map",
+    "index.html": "/eaczechova/Game-of-Life/index.html",
+    "precache-manifest.a1e5f32efc9b0ab35a15b582863d6bf6.js": "/eaczechova/Game-of-Life/precache-manifest.a1e5f32efc9b0ab35a15b582863d6bf6.js",
+    "service-worker.js": "/eaczechova/Game-of-Life/service-worker.js",
+    "static/css/main.1b61d830.chunk.css.map": "/eaczechova/Game-of-Life/static/css/main.1b61d830.chunk.css.map",
+    "static/js/2.600ed2f7.chunk.js.LICENSE.txt": "/eaczechova/Game-of-Life/static/js/2.600ed2f7.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.a83f5fd1.js",
-    "static/js/2.13c1aece.chunk.js",
+    "static/js/runtime-main.6133649e.js",
+    "static/js/2.600ed2f7.chunk.js",
     "static/css/main.1b61d830.chunk.css",
-    "static/js/main.b5f8aa1d.chunk.js"
+    "static/js/main.b4e70dd3.chunk.js"
   ]
 }
