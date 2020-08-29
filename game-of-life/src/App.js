@@ -25,15 +25,18 @@ function App() {
   const cols = 20;
   const initialSpeed = 10;
 
+  // Vars used for custom settings
   const [tempSpeed, setTempSpeed] = useState(initialSpeed);
   const [speed, setSpeed] = useState(initialSpeed);
-  
-  const [generation, setGeneration] = useState(0);
   const [color, setColor] = useState('#000');
-  const [ownLayout, setOwnLayout] = useState(false);
-
-  const intervalRef = useRef(null);
+  
+  // Vars used for game rendering, to set conditions
+  const [generation, setGeneration] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [ownLayout, setOwnLayout] = useState(false);
+  const [usePreset, setUsePreset] = useState(false);
+  const intervalRef = useRef(null);
+
 
   // ************************
   // GRID SETUP
@@ -104,6 +107,7 @@ function App() {
     setGrid(emptyGrid);
     setGeneration(0);
     setSpeed(initialSpeed);
+    setTempSpeed(initialSpeed);
     setOwnLayout(false);
   };
 
@@ -142,23 +146,25 @@ function App() {
   // Custom presets
 
   const preset1 = () => {
-    let filledGrid = [...grid];
+    let preset1Grid = new Array(rows).fill(new Array(cols).fill(0)).map(col => col.map(row => row = 0));
     for (let i = 0; i < rows; i += 2) {
       for (let j = 0; j < cols; j++) {
-        filledGrid[i][j] = 1;
+        preset1Grid[i][j] = 1;
       }
     }
-    setGrid(filledGrid);
+    setUsePreset(true);
+    setGrid(preset1Grid);
   }
 
   const preset2 = () => {
-    let filledGrid = [...grid];
+    let preset2Grid = new Array(rows).fill(new Array(cols).fill(0)).map(col => col.map(row => row = 0));
     for (let i = 0; i < rows; i ++) {
-      for (let j = 0; j < cols; j++) {
-        filledGrid[i][j % 2] = Math.floor(Math.random() * 2);
+      for (let j = 0; j < cols; j+=2) {
+        preset2Grid[i][j] = 1;
       }
     }
-    setGrid(filledGrid);
+    setUsePreset(true);
+    setGrid(preset2Grid);
   }
 
   //\\  row, col //\\
@@ -175,18 +181,23 @@ function App() {
   
   useEffect(() => {
     if (isPlaying && generation === 0) {
-      if(ownLayout) {
+      if (ownLayout || usePreset) {
         clearInterval(intervalRef.current);
         intervalRef.current = setInterval(play, speed);
       } else {
-      fillGrid();
+        fillGrid();
         clearInterval(intervalRef.current);
         intervalRef.current = setInterval(play, speed);
       }
     } 
     else if (isPlaying && generation > 0) {
-      clearInterval(intervalRef.current);
-      intervalRef.current = setInterval(play, speed);
+      if (ownLayout || usePreset) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = setInterval(play, speed);
+      } else {
+        clearInterval(intervalRef.current);
+        intervalRef.current = setInterval(play, speed);
+      }
     } else if (!isPlaying) {
       clearInterval(intervalRef.current);
     } 
@@ -213,7 +224,7 @@ function App() {
             </ButtonsContainer>
             <SectionTitle>Settings</SectionTitle>
             <Form onSubmit={onFormSubmit}>
-              <input value={tempSpeed} onChange={handleSpeedChange} /><button disabled={isPlaying ? 'true' : ''}>Ok</button></Form>
+              <input value={tempSpeed} onChange={handleSpeedChange}/><button disabled={isPlaying ? 'true' : ''}>Ok</button></Form>
             <ColorPickerWrapper>
               <ChromePicker color={color} onChangeComplete={handleChangeComplete} />
             </ColorPickerWrapper>
