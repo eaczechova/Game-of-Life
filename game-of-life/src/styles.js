@@ -18,11 +18,11 @@ export const MainWrapper = styled.main`
     flex-direction: row;
     border-radius: 5px;
     background-color: white;
-    box-shadow: 2.5px 5px 4px #DCDCDC;
+    // box-shadow: 2.5px 5px 4px #DCDCDC;
     @media (min-width: 900px) {
         flex-direction: column;
-        width: 95%; 
-        margin: 0 auto;
+        width: 90%; 
+        margin: 2rem auto;
         justify-content:center;
 	}
 `;
@@ -31,15 +31,15 @@ export const GameContainer = styled.div`
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    @media (min-width: 900px) {
-       justify-content: space-between;
-	}
+    // @media (min-width: 900px) {
+    //    flex-direction: row;
+	// }
 `;
 
 export const SectionTitle = styled.h2`
     text-align: center;
     font-size: 1.6rem;
-    padding: 2rem 1rem;
+    padding: 4rem 1rem;
     letter-spacing: 2px;
 `;
 
@@ -50,8 +50,11 @@ export const GridWrapper = styled.div`
     flex-direction: column;
     justify-content: center;
     @media (min-width: 900px) {
+        flex-direction: row;
         align-items: baseline;
-        width: 55%;
+        width: 60%;
+        margin: 3rem auto;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 	}
 `;
 
@@ -63,11 +66,12 @@ export const Game = styled.div`
     grid-template-rows: repeat(auto-fit, minmax(1.45rem, 1fr));
     margin: 0.5rem auto;
     border: 1px solid #D1C6C6;
+    // box-shadow: 2.5px 5px 4px #DCDCDC;
     @media (min-width: 900px) {
         width: 50rem;
         height: 50rem;
-        grid-template-columns: repeat(auto-fit, minmax(2.5rem, 1fr));
-        grid-template-rows: repeat(auto-fit, minmax(2.5rem, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(2.4rem, 1fr));
+        grid-template-rows: repeat(auto-fit, minmax(2.4rem, 1fr));
     }
 `;
 
@@ -88,6 +92,7 @@ export const ButtonsContainer = styled.div`
     @media (min-width: 900px) {
         flex-direction: row;
         width: 100%;
+        margin: 2rem;
     }
 `;
 
@@ -114,35 +119,11 @@ export const PresetsContainer = styled.div`
     display: flex;
     flex-direction: column;
     @media (min-width: 900px) {
-        width: 20%;
-`;
-
-export const Form = styled.form`
-    text-align: center;
-`;
-
-export const Input = styled.input`
-    border: none;
-    border-bottom: 1px solid gray;
-    margin-right: 2rem;
-    transition: box-shadow .5s;
-    &:focus {
-        outline: none;
-        box-shadow: 0px 1px 0px rgba(0,0,0,.5)
-    }
-`;
-
-export const SubmitButton = styled.button`
-    border-radius: 5px;
-    border: none; 
-    padding: 1.2rem;
-    cursor: pointer;
-    background-color: transparent;
-    box-shadow: 0px 2px 4px rgba(0,0,0,.1);
-    transition: box-shadow 1s ;
-    &:hover {
-        box-shadow: 0px 2px 4px rgba(0,0,0,.5);
-  }
+        width: 30%;
+        // width: 90%;
+        margin: 3rem auto;
+        //  border: 1px solid red;
+          box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 `;
 
 export const ColorPickerWrapper = styled.div`
@@ -150,22 +131,10 @@ export const ColorPickerWrapper = styled.div`
 `;
 
 export const Rules = styled.section`
-    width: 100%;
+    width: 50%;
+    margin: 2rem auto;
     font-size: 1.6rem;
-    @media (min-width: 900px) {
-        width: 20%;
-	}
-`;
-
-export const List = styled.ul`
-    text-align: justify;
-    margin: 0 auto;
-    list-style: none;
-`;
-
-export const ListElement = styled.li`
-    font-size: 1.5rem;
-    padding: 0 2rem 2rem 0;
+    // text-align: center;
 `;
 
 export const About = styled.section`

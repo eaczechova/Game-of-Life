@@ -5,7 +5,7 @@ html {
 }
 
 body {
-  background-color: #2196F3;
+  background-color: #4C4280;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -15,5 +15,5 @@ body {
 }
 
 a:visited {
-  color: #2196F3;
+  color: #4C4280;
 }

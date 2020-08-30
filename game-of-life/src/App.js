@@ -1,25 +1,23 @@
 import React, { useState, useEffect, useRef} from 'react';
 import { ChromePicker } from 'react-color';
 import Grid from './Grid.js';
+import RangeSlider from 'react-bootstrap-range-slider';
 import './App.css';
+import {ListGroup, Form, Col, Row} from 'react-bootstrap';
 import {
   GameTitle,
   MainWrapper,
   Rules,
   About,
   SectionTitle,
-  List,
   GridWrapper,
   GameContainer,
-  ListElement,
   PresetsContainer,
   ButtonsContainer,
-  SubmitButton,
-  Input,
   Button,
-  ColorPickerWrapper,
-  Form
+  ColorPickerWrapper
 } from './styles';
+// import { Form } from 'react-bootstrap';
 
 function App() {
 
@@ -28,9 +26,8 @@ function App() {
   const initialSpeed = 10;
 
   // Vars used for custom settings
-  const [tempSpeed, setTempSpeed] = useState(initialSpeed);
   const [speed, setSpeed] = useState(initialSpeed);
-  const [color, setColor] = useState('#2196F3');
+  const [color, setColor] = useState('#4C4280');
   
   // Vars used for game rendering, to set conditions
   const [generation, setGeneration] = useState(0);
@@ -45,7 +42,7 @@ function App() {
   // ************************
 
   // Creates empty grid of rows and cols
-
+ 
   const [grid, setGrid] = useState(() => {
     const grid = new Array(rows).fill(new Array(cols).fill(0)).map(col => col.map(row => row = 0));
     return grid
@@ -54,25 +51,34 @@ function App() {
   // Fills grid cells with random values of 0 or 1; Run the function on component mount
 
   const fillGrid = () => {
-    let filledGrid = [...grid];
     for (let i = 0; i < rows; i++) {
       for (let j = 0; j < cols; j++) {
-        filledGrid[i][j] = Math.floor(Math.random() * 2);
+        grid[i][j] = Math.floor(Math.random() * 2);
       }
     }
-    setGrid(filledGrid);
+    setGrid(grid);
   }
-
+ 
   // ************************
   // GAME SETUP
   // ************************
 
+  const update = () => {
+    let updatedGrid = play(grid);
+    setGrid(updatedGrid);
+    setGeneration(generation => generation + 1);
+  }
+  
+  
   const toggle = () => {
     setIsPlaying(!isPlaying);
   }
 
-  const play = () => {
-    const newGrid = [...grid];
+  const play = (grid) => {
+    // DEEP COPY
+    // const newGrid = grid.map(g => [...g])
+    const newGrid = JSON.parse(JSON.stringify(grid));
+
     for (let row = 0; row < grid.length; row++) {
       for (let col = 0; col < grid[row].length; col++) {
         const cell = grid[row][col]; // value of cell 0 or 1
@@ -87,20 +93,22 @@ function App() {
               // To stay within the grid
               if (cellRow > 0 && cellRow < grid.length && cellCol > 0 && cellCol < grid.length) {
                 neighbourCounter += grid[cellRow][cellCol];
+                
               }
             }
           }
         }
-
+      
         if (cell === 0 && neighbourCounter === 3) {
-          newGrid[row][col] = 1;
+           newGrid[row][col] = 1;
         } else if ((cell === 1 && neighbourCounter > 3) || (cell === 1 && neighbourCounter < 2)) {
-          newGrid[row][col] = 0;
+           newGrid[row][col] = 0;
         }
       }
     }
-    setGrid(newGrid);
-    setGeneration(generation => generation+1);
+    
+    return newGrid;
+
   }
 
   const stopGame = () => {
@@ -109,7 +117,6 @@ function App() {
     setGrid(emptyGrid);
     setGeneration(0);
     setSpeed(initialSpeed);
-    setTempSpeed(initialSpeed);
     setOwnLayout(false);
   };
 
@@ -123,17 +130,6 @@ function App() {
     setColor(color.hex);
   };
 
-  // Change speed on for submit when game is stopped ot paused
-
-  const handleSpeedChange = (e) => {
-    setTempSpeed(e.target.value);
-  }
-
-  const onFormSubmit = (e) => {
-    e.preventDefault();
-    setSpeed(tempSpeed);
-  }
-
   // Change state of selected grid cell; 
 
   const changeSelectedCell = (rows, col) => {
@@ -143,6 +139,7 @@ function App() {
       setGrid(newGrid);
       setOwnLayout(true);
     }
+    return newGrid;
   };
 
   // Custom presets
@@ -185,33 +182,35 @@ function App() {
     if (isPlaying && generation === 0) {
       if (ownLayout || usePreset) {
         clearInterval(intervalRef.current);
-        intervalRef.current = setInterval(play, speed);
+        intervalRef.current = setInterval(update, speed);
       } else {
         fillGrid();
         clearInterval(intervalRef.current);
-        intervalRef.current = setInterval(play, speed);
+        intervalRef.current = setInterval(update, speed);
       }
     } 
     else if (isPlaying && generation > 0) {
       if (ownLayout || usePreset) {
         clearInterval(intervalRef.current);
-        intervalRef.current = setInterval(play, speed);
+        
+        intervalRef.current = setInterval(update, speed);
       } else {
         clearInterval(intervalRef.current);
-        intervalRef.current = setInterval(play, speed);
+        intervalRef.current = setInterval(update, speed);
       }
     } else if (!isPlaying) {
       clearInterval(intervalRef.current);
     } 
-  }, [isPlaying, speed]);
+  }, [isPlaying, speed, generation]);
 
   return (
     <>
       <GameTitle>Conway's Game of Life</GameTitle>
       <MainWrapper>
+       
         <GameContainer>
-          <SectionTitle style={{width: '100%'}}>Generation # {generation}</SectionTitle>
           <GridWrapper>
+            <SectionTitle style={{ width: '100%' }}>Generation # {generation}</SectionTitle>
             <Grid grid={grid} changeSelectedCell={changeSelectedCell} color={color}/>
             <ButtonsContainer>
               <Button onClick={toggle}>{isPlaying ? 'Pause' : 'Start'}</Button>
@@ -219,31 +218,39 @@ function App() {
             </ButtonsContainer>
           </GridWrapper>
           <PresetsContainer>
-            <SectionTitle>Presets</SectionTitle>
-            <ButtonsContainer>
-              <Button onClick={preset1}>Preset 1</Button>
-              <Button onClick={preset2}>Preset 2</Button>
-            </ButtonsContainer>
-            <SectionTitle>Settings</SectionTitle>
-            <Form onSubmit={onFormSubmit}>
-              <Input value={tempSpeed} onChange={handleSpeedChange} /><SubmitButton disabled={isPlaying ? 'true' : ''}>Ok</SubmitButton></Form>
-            <ColorPickerWrapper>
-              <ChromePicker color={color} onChangeComplete={handleChangeComplete} />
-            </ColorPickerWrapper>
+            <>
+              <SectionTitle>Presets</SectionTitle>
+              <ButtonsContainer>
+                <Button onClick={preset1}>Preset 1</Button>
+                <Button onClick={preset2}>Preset 2</Button>
+             </ButtonsContainer>
+            </>
+            <>
+              <SectionTitle>Settings</SectionTitle>
+              <Form as={Row} className='justify-content-md-center'>
+                <Col xs='8'>
+                  <RangeSlider size='m' value={speed} onChange={(e) => setSpeed(e.target.value)} variant='warning' min={10}
+                    max={1000}/>
+                </Col>
+              </Form>
+              <ColorPickerWrapper>
+                <ChromePicker color={color} onChangeComplete={handleChangeComplete} />
+              </ColorPickerWrapper>
+            </>
           </PresetsContainer>
-          <Rules>
-            <SectionTitle>Rules</SectionTitle>
-            <List>
-              <ListElement>Live cell with fewer than 2 live neighbors dies</ListElement>
-              <ListElement>Live cell with 2 or 3 live neighbors lives on to the next generation.</ListElement>
-              <ListElement>Live cell with more than 3 live neighbors dies.</ListElement>
-              <ListElement>Dead cell with exactly 3 live neighbors becomes a live cell.</ListElement>
-            </List>
-          </Rules>
         </GameContainer>
+        <Rules>
+          <SectionTitle>Rules</SectionTitle>
+          <ListGroup>
+            <ListGroup.Item>Live cell with fewer than 2 live neighbors dies</ListGroup.Item>
+            <ListGroup.Item>Live cell with 2 or 3 live neighbors lives on to the next generation.</ListGroup.Item>
+            <ListGroup.Item>Live cell with more than 3 live neighbors dies.</ListGroup.Item>
+            <ListGroup.Item>Dead cell with exactly 3 live neighbors becomes a live cell.</ListGroup.Item>
+          </ListGroup>
+        </Rules>
         <About> 
           <SectionTitle>About</SectionTitle>
-          <p>Conway’s <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life" target="_blank"> Game of Life</a> is a cellular automaton devised by British mathematician John Horton Conway in 1970.</p>
+          <p>Conway’s <a href='https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life' target='_blank' rel="noopener noreferrer"> Game of Life</a> is a cellular automaton devised by British mathematician John Horton Conway in 1970.</p>
           <p>A player interacts with the Game of Life by creating an initial configuration and observing how it evolves. The player can also use one of two predefined presets or just click Start button to have 
               the initial configuration created by the program instaed.</p>
           <p>The player can also changed color of the living sells and the speed in which cells move to the next generation. The chnage of speed can be done only when the game is paused or stopped.</p>
