@@ -23,7 +23,7 @@ function App() {
 
   const rows = 20;
   const cols = 20;
-  const initialSpeed = 10;
+  const initialSpeed = 100;
 
   // Vars used for custom settings
   const [speed, setSpeed] = useState(initialSpeed);
@@ -229,7 +229,7 @@ function App() {
               <SectionTitle>Settings</SectionTitle>
               <Form as={Row} className='justify-content-md-center'>
                 <Col xs='8'>
-                  <RangeSlider size='m' value={speed} onChange={(e) => setSpeed(e.target.value)} variant='warning' min={10}
+                  <RangeSlider size='m' value={speed} onChange={(e) => setSpeed(e.target.value)} variant='warning' min={100}
                     max={1000}/>
                 </Col>
               </Form>
